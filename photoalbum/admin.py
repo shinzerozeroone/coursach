@@ -28,7 +28,7 @@ class PremAlbumAdmin(admin.StackedInline):
 
 
 @admin.register(Premium)
-class PremAdmin(admin.ModelAdmin):
+class PremAdmin(admin.ModelAdmin): # представления сущниости в админке 
     inlines = [PremAlbumAdmin]
 
     class Meta:
@@ -43,7 +43,7 @@ class PremAlbumAdmin(admin.ModelAdmin):
 #----------
 
 
-class VipAlbumAdmin(admin.StackedInline):
+class VipAlbumAdmin(admin.StackedInline): # свойство самой сущности m2m
     model = VipAlbum
 
 
@@ -74,7 +74,6 @@ class FullAdmin(admin.ModelAdmin):
     class Meta:
        model = Full
 
-
 @admin.register(FullAlbum)
 class FullAlbumAdmin(admin.ModelAdmin):
     pass
@@ -94,16 +93,22 @@ class CategoryAdmin(ImportExportModelAdmin):
 @admin.register(Contact)
 class ContactAdmin(ImportExportModelAdmin, ImportExportActionModelAdmin):
     list_display = ('email', 'name', 'text')
+    list_filter = ('email', 'name')
+    search_fields = ["name", "text"]
     pass
-
 
 @admin.register(Author)
 class AuthorAdmin(ImportExportActionModelAdmin):
     list_display = ('name', 'email')
+    list_display_links = ['name']
     pass
 
 
 @admin.register(Review)
 class ReviewAdmin(ImportExportActionModelAdmin):
     list_display = ('title', 'description', 'author')
+    readonly_fields = ["author","title","description"]
     pass
+ 
+
+    
